@@ -1,0 +1,5 @@
+Wine  6.00
+Chicken Pasta   12.00
+Ravioli   14.00
+Salad   9.00
+Hot Tea   2.00

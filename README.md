@@ -1,2 +1,3 @@
-# tabbit_rabit_rails
-Tabbit Rabbit remade in Rails w/ React
+# tabbit_rabbit_api
+API for tab splitting
+

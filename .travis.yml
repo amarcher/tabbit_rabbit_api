@@ -1,5 +1,9 @@
 language: ruby
 rvm:
  - "2.2.2"
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database draft-tracker_test;' -U postgres
 # uncomment this line if your project needs to run something other than `rake`:
 script: bundle exec rspec spec

@@ -21,4 +21,4 @@ API for tab splitting
 
 ### Running the test suite
 
-`bundle exec rake spec`
+`bundle exec rspec`

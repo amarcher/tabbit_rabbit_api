@@ -4,7 +4,7 @@ rvm:
 services:
   - postgresql
 before_script:
-  - psql -c 'create database draft-tracker_test;' -U postgres
+  - psql -c 'create database tabbit_rabbit_api_test;' -U postgres
 
 # uncomment this line if your project needs to run something other than `rake`:
 script: bundle exec rspec spec

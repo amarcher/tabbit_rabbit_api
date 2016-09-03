@@ -6,8 +6,5 @@ services:
 before_script:
   - psql -c 'create database draft-tracker_test;' -U postgres
 
-test:
-  adapter: postgresql
-  database: draft-tracker_test
 # uncomment this line if your project needs to run something other than `rake`:
 script: bundle exec rspec spec

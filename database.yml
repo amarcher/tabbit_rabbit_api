@@ -1,0 +1,3 @@
+test:
+  adapter: postgresql
+  database: draft-tracker_test

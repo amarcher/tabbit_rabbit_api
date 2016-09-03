@@ -5,6 +5,6 @@ class ItemController < ApplicationController
     Item.new(item)
     if item.save
       render json: item
-    end 
+    end
   end
 end

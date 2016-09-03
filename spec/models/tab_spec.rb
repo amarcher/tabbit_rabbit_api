@@ -6,13 +6,13 @@ RSpec.describe Tab, type: :model do
   let(:dine_date) { Date.today }
 
   it 'should have methods #user, #items and #rabbits' do
-    [:user, :items, :rabbits].each { |method| tab.should respond_to method }
+    [:user, :items, :rabbits].each { |method| expect(tab).to respond_to method }
   end
 
   it 'before_create, it should assign dine_date to be today' do
     expect(Date).to receive(:today).and_return(dine_date)
     tab.save!
-    tab.dine_date.should == dine_date
+    expect(tab.dine_date).to eq(dine_date)
     tab.destroy
   end
 end

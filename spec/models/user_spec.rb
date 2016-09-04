@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   let(:user) do
     User.new(
       name: 'Andrew',
@@ -12,9 +11,14 @@ RSpec.describe User, type: :model do
   let(:rabbit) do
     Rabbit.new(id: 123)
   end
+  let(:auth_token) { "auniquetoken123" }
 
   it 'should have methods #tab and #rabbits' do
     [:tabs, :rabbits].each { |method| expect(user).to respond_to method }
+  end
+
+  it 'should have an auth_token method' do
+    expect(user).to respond_to :auth_token
   end
 
   it 'should create a rabbit before_create, assign that rabbit to be its avatar & add it to its rabbits' do
@@ -24,6 +28,26 @@ RSpec.describe User, type: :model do
     expect(user.avatar_rabbit_id).to eq 123
     expect(user.rabbits).to eq [rabbit]
     user.destroy
+  end
+
+  describe '#generate_authentication_token!' do
+    it "generates a unique token" do
+      expect(SecureRandom).to receive(:hex).and_return(auth_token)
+      user.generate_authentication_token!
+      expect(user.auth_token).to eq auth_token
+    end
+
+    it "generates another token when one already has been taken" do
+      existing_user = User.new(
+        name: 'Herald',
+        email: 'herald@gmail.com',
+        phone_number: '415-209-3333'
+      )
+      existing_user.save!
+      user.generate_authentication_token!
+      expect(user.auth_token).not_to eq existing_user.auth_token
+      existing_user.destroy
+    end
   end
 
   describe '#password' do

@@ -6,7 +6,7 @@ RSpec.describe TabController, type: :controller do
 
   before :each do
     user.tabs << tab
-    expect(User).to receive(:first).and_return(user)
+    allow(controller).to receive(:current_user).and_return(user)
   end
 
   describe 'GET #index' do

@@ -6,11 +6,10 @@ class TabController < ApplicationController
     render json: tabs
   end
 
-  def new
+  def create
     tab = Tab.new(name: "Untitled Tab")
-    tab.items << Item.create(price: 0)
     tab.user = current_user
-    tab.rabbits << Rabbit.find(current_user.avatar_rabbit_id)
+    tab.rabbit_ids = current_user.avatar_rabbit_id
     tab.save!
     render json: tab
   end
@@ -23,19 +22,11 @@ class TabController < ApplicationController
 
   def update
     tab_id = params[:id]
-    updated_items = params[:items]
-    updated_tab = params[:tab]
+    updated_tab = JSON.parse(params[:tab], symbolize_names: true)
 
-    tab = Tab.includes(:items).find(tab_id)
-    tab.update(name: updated_tab[:name])
+    tab = Tab.find(tab_id)
+    tab.update(updated_tab)
 
-    items = updated_items.map do |updated_item|
-      updatedItem = updated_item.last
-      item = Item.find(updated_item[:id])
-      item.update(name: updated_item[:name], price: updated_item[:price])
-      item
-    end
-
-    render json: { tab: tab, items: items }
+    render json: tab
   end
 end

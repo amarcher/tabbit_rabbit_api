@@ -29,4 +29,13 @@ class TabController < ApplicationController
 
     render json: tab
   end
+
+  def destroy
+    tab_id = params[:id]
+
+    tab = Tab.find(tab_id)
+    tab.destroy
+
+    render nothing: true, status: 204
+  end
 end

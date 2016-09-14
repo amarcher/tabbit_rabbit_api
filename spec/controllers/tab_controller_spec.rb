@@ -118,4 +118,25 @@ RSpec.describe TabController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'with valid user' do
+      before :each do
+        controller.instance_variable_set(:@user, user)
+      end
+
+      it 'responds with success' do
+        delete :destroy, id: tab.id
+
+        expect(response).to be_success
+        expect(response).to have_http_status(204)
+      end
+
+      it 'deletes the tab from the user' do
+        delete :destroy, id: tab.id
+
+        expect(user.tabs).to be_empty
+      end
+    end
+  end
 end
